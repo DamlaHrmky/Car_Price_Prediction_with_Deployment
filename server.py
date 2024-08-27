@@ -337,5 +337,5 @@ def data():
     filtered_df = df[df['type'].isin(selector)]
     return jsonify(filtered_df.to_dict(orient='records'))
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)  # Ensure it runs on port 5000
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')  # Ensure it runs on port 5000
