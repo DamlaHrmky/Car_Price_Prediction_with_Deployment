@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Car Price Prediction | Prediction</title>
+  <meta charset="utf-8">
+  <!-- Directly reference CSS files -->
+  <link rel="stylesheet" type="text/css" media="screen" href="/static/css/reset.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300" rel="stylesheet" type="text/css">
+  <!-- Directly reference JS files -->
+  <script src="/static/js/jquery-1.7.min.js"></script>
+  <script src="/static/js/jquery.easing.1.3.js"></script>
+  <!--[if lt IE 9]>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="/static/js/html5.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="/static/css/ie.css">
+  <![endif]-->
+</head>
+<body>
+<div class="bg">
+  <header>
+    <div class="main wrap">
+      <h1><a href="/"><img src="/static/images/car_price.png" alt=""></a></h1>
+    </div>
+    <nav>
+      <ul class="menu">
+        <li><a href="/" class="home"><img src="/static/images/home.jpg" alt=""></a></li>
+        <li><a href="/overview.html">Overview</a></li>
+        <li><a href="/visualization.html">Visualization</a></li>
+        <li class="current"><a href="/prediction.html">Prediction</a></li>
+      </ul>
+      <div class="clear"></div>
+    </nav>
+  </header>
+  <section id="content">
+    <div class="sub-page">
+      <div class="sub-page-left box-9">
+        <br><br>
+        <h2 class="p4" align="center">Prediction Results</h2>
+        <br><br>
+
+        <!-- Display table with the form data -->
+        <table style="width: 100%; font-size: 16px; border-collapse: collapse; border: 2px solid #333;">
+          <tr style="background-color: #f2f2f2;">
+              <th style="border: 2px solid #333; padding: 10px; text-align: center;">Make/Model</th>
+              <th style="border: 2px solid #333; padding: 10px; text-align: center;">Type</th>
+              <th style="border: 2px solid #333; padding: 10px; text-align: center;">Power (kW)</th>
+              <th style="border: 2px solid #333; padding: 10px; text-align: center;">Mileage</th>
+              <th style="border: 2px solid #333; padding: 10px; text-align: center;">Age</th>
+              <th style="border: 2px solid #333; padding: 10px; text-align: center;">Engine Size</th>
+          </tr>
+          <tr>
+              <td style="border: 2px solid #333; padding: 10px; text-align: center;">{{ selected_make_model }}</td>
+              <td style="border: 2px solid #333; padding: 10px; text-align: center;">{{ selected_type }}</td>
+              <td style="border: 2px solid #333; padding: 10px; text-align: center;">{{ power_kw }}</td>
+              <td style="border: 2px solid #333; padding: 10px; text-align: center;">{{ mileage }}</td>
+              <td style="border: 2px solid #333; padding: 10px; text-align: center;">{{ age }}</td>
+              <td style="border: 2px solid #333; padding: 10px; text-align: center;">{{ engine_size }}</td>
+          </tr>
+        </table>
+
+        <br>
+        <h2 align="center"><img src="{{ url_for('static', filename='images/Animation - 1724755893454.gif') }}" alt="Loading GIF" class="gif-class"></h2>
+        <br><br>
+
+        <!-- Display Prediction Result -->
+        <div class="prediction-box">
+          {% if prediction is not none %}
+            <h3 align="center" class="prediction-title">Prediction Result</h3>
+            <div style="background-color: #007bff; padding: 20px; border-radius: 8px; text-align: center; color: white; margin: 20px 0;">
+              <p class="prediction-title" style="font-size: 24px; font-weight: bold; color: white;">The predicted price is: ${{ prediction }}</p>
+            </div>
+          {% else %}
+            <p class="prediction-text" style="text-align: center;">No prediction available. Please enter the details and submit.</p><br><br><br><br>
+          {% endif %}
+        </div>
+
+        <br><br><br>
+      </div>
+      <div class="sub-page-right">
+        <h2 class="p3">Most Popular</h2>
+        <br><br><br>
+        <form id="filter-form" action="{{ url_for('prediction') }}" method="post">
+          <label for="make_model" class="upper">Select Make/Model</label><br>
+          <select name="make_model" id="make_model" class="form-control" style="width: 200px; padding: 8px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+            <option value="All">All</option>
+            {% for model in make_models %}
+              <option value="{{ model }}" {% if model == selected_make_model %} selected {% endif %}>{{ model }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="type" class="upper">Select Type</label><br>
+          <select name="type" id="type" class="form-control" style="width: 200px; padding: 8px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px;">
+            <option value="All">All</option>
+            {% for car_type in car_types %}
+              <option value="{{ car_type }}" {% if car_type == selected_type %} selected {% endif %}>{{ car_type }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="power_kw" class="upper">Enter Power (kW)</label><br>
+          <input type="number" name="power_kw" id="power_kw" class="form-control" placeholder="Enter" value="{{ power_kw }}" style="width: 150px; padding: 3px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px; margin-right: 10px;">
+          <br>
+          <label for="mileage" class="upper">Enter Mileage</label><br>
+          <input type="number" name="mileage" id="mileage" class="form-control" placeholder="Enter" value="{{ mileage }}" style="width: 150px; padding: 3px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px; margin-right: 10px;">
+          <br>
+          <label for="age" class="upper">Enter Age</label><br>
+          <input type="number" name="age" id="age" class="form-control" placeholder="Enter" value="{{ age }}" style="width: 150px; padding: 3px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px; margin-right: 10px;">
+          <br>
+          <label for="engine_size" class="upper">Enter Engine Size</label><br>
+          <input type="number" name="engine_size" id="engine_size" class="form-control" placeholder="Enter" value="{{ engine_size }}" style="width: 150px; padding: 3px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 15px; margin-right: 10px;">
+          <br>
+          <button type="submit" class="button-2 top-1">Submit</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <footer class="footer-wide">Car Price Prediction &copy; 2024 | <a href="#">Privacy Policy</a> | Design by: Damla Harmankaya</footer>
+</div>
+</body>
+</html>
