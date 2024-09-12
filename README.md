@@ -59,6 +59,25 @@ To set up and run the project locally, follow these steps:
 - **Input**: Enter the details of the car such as make, model, year, mileage, etc.
 - **Prediction**: Submit the form to get the predicted price of the car.
 
+## Screenshots
+
+Here are some screenshots of the Flask application:
+*Figure 1: Home page of the car price prediction application.*
+![Hom![1](https://github.com/user-attachments/assets/98499c8e-f2d4-4e5f-be4a-77fc5f25fe13)
+
+
+*Figure 2: Prediction result page showing data overview.*
+![Predict![2](https://github.com/user-attachments/assets/b4f513ee-29cd-4640-a0a7-b4fc1309f42b)
+
+*Figure 3: Prediction result page showing price distributions*
+![3](https://github.com/user-attachments/assets/7ef55f27-e833-4c9c-97a8-78daedfcedd7)
+
+*Figure 3: Prediction result page showing price prediction*
+![4](https://github.com/user-attachments/assets/1d04654f-1853-4e43-9704-6219e610ad9b)
+![5](https://github.com/user-attachments/assets/699ccac2-8fce-4365-b2f0-29b19686638c)
+
+
+
 ## Model Details
 
 - **Model**: Linear Regression
@@ -88,4 +107,5 @@ The project is deployed using Flask. The `app.py` file contains the Flask applic
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 
